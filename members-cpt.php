@@ -196,6 +196,19 @@ function members_display_shortcode($atts) {
             $category_names = ($categories && !is_wp_error($categories)) ? wp_list_pluck($categories, 'name') : [];
             $category_list = !empty($category_names) ? implode(', ', $category_names) : 'No Category';
 
+            //Assign CPT Terms
+            if( $categories && !is_wp_error($categories)) {
+                $category_link = [];
+
+                foreach ($categories as $category) {
+                    $category_links[] = '<a href="' . esc_url(get_term_link($category)) . '">' . esc_html($category->name) . '</a>';
+                }
+
+                $category_list = implode(', ', $category_links); 
+            } else { 
+                $category_list = 'Uncategorized';
+            }
+
             // Start member item
             $output .= <<<HTML
             <div class="member-item">
@@ -216,9 +229,10 @@ function members_display_shortcode($atts) {
     HTML;
 
             // Display Category
-            $output .= <<<HTML
-                <p>{$category_list}</p>
-    HTML;        
+            // $catlink = esc_url(get_category_link());
+            $output .= <<<HTML                
+            <p>{$category_list}</p>
+            HTML;        
                 
             // Display Bio if available
             if (!empty($bio)) {
