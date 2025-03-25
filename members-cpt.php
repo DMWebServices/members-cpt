@@ -230,9 +230,9 @@ function members_display_shortcode($atts) {
 
             // Display Category
             // $catlink = esc_url(get_category_link());
-            $output .= <<<HTML                
-            <p>{$category_list}</p>
-            HTML;        
+            $output .= <<<HTML
+                <p>{$category_list}</p>
+    HTML;        
                 
             // Display Bio if available
             if (!empty($bio)) {
@@ -287,7 +287,21 @@ function custom_members_single_template($single_template) {
 add_filter('single_template', 'custom_members_single_template');
 
 
+function dsm_plugin_styles() {
+    wp_enqueue_style('dsm-plugin-styles', plugin_dir_url(__FILE__) . 'assets/css/plugin-styles.css', array(), time(), 'all');
+}
+add_action('wp_enqueue_scripts', 'dsm_plugin_styles');
 
+function dsm_load_archive_plugin_styles($template) {
+    if ( is_post_type_archive('members')) {
+        $plugin_template = plugin_dir_path(__FILE__) . 'templates/archive-members-cpt.php';
+        if (file_exists($plugin_template)) {
+            return $plugin_template;
+        }
+    }
+    return $template;
+}
+add_filter('template_include', 'dsm_load_archive_plugin_styles');
 ?>
 
 
