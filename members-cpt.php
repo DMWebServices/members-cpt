@@ -220,45 +220,46 @@ function members_display_shortcode($atts) {
                 <div class="member-photo">{$thumbnail}</div>
     HTML;
             }
+
+            // Container for Member Content Container
+            $output .= <<<HTML
+                <div class="member-content-container">
+    HTML;
+
+            // Display Category
+            // $catlink = esc_url(get_category_link());
+    //         $output .= <<<HTML
+    //             {$category_list}
+    // HTML;    
     
             // Member Name
             $title = esc_html(get_the_title());
             $permalink = esc_url(get_permalink());
             $output .= <<<HTML
-                <a href="{$permalink}"><h3>{$title}</h3></a>
-    HTML;
-
-            // Display Category
-            // $catlink = esc_url(get_category_link());
-            $output .= <<<HTML
-                <p>{$category_list}</p>
-    HTML;        
+                <a href="{$permalink}"><h3 class="member-item--title">{$title}</h3></a>
+    HTML;               
                 
             // Display Bio if available
             if (!empty($bio)) {
-                $bio_escaped = esc_html($bio);
+                $bio_trimmed = wp_trim_words($bio, 20, ' Read More!');
+                $bio_escaped = esc_html($bio_trimmed);
                 $output .= <<<HTML
                 <p>{$bio_escaped}</p>
     HTML;
-            }
-    
-            // Display Email if available
-            if (!empty($email)) {
-                $email_escaped = esc_attr($email);
-                $output .= <<<HTML
-                <p><a href="mailto:{$email_escaped}">{$email_escaped}</a></p>
+            }     
+            
+            // Display Buttons
+            $permalink = esc_url(get_permalink());
+            $output .= <<<HTML
+            <a href="{$permalink}" class="my-button">View</a>
     HTML;
-            }
+            
+            // Close Member Item Content Container
+            $output .= <<<HTML
+            </div>
+    HTML;       
     
-            // Display Phone if available
-            if (!empty($phone)) {
-                $phone_escaped = esc_attr($phone);
-                $output .= <<<HTML
-                <p><a href="tel:{$phone_escaped}">{$phone_escaped}</a></p>
-    HTML;
-            }
-    
-            // Close member item
+            // Close Member Item
             $output .= <<<HTML
             </div>
     HTML;
@@ -288,6 +289,13 @@ add_filter('single_template', 'custom_members_single_template');
 
 
 function dsm_plugin_styles() {
+    // Font Awesome Icons
+     wp_enqueue_style('dsm_plugin_styles-icons', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css', array(), null);
+    
+    // Google Fonts
+    wp_enqueue_style('dsm_plugin_styles-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap', array(), null);
+    
+    // Main Plugin Styles
     wp_enqueue_style('dsm-plugin-styles', plugin_dir_url(__FILE__) . 'assets/css/plugin-styles.css', array(), time(), 'all');
 }
 add_action('wp_enqueue_scripts', 'dsm_plugin_styles');
