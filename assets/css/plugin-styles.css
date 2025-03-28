@@ -38,14 +38,16 @@
 /** Single Page stlyes **/
 .members-title { font-family: "Poppins", sans-serif; font-size: 32px; margin: 0 0 12px 0; }
 .member-photo-featured img { display: block; height: 350px; object-fit: cover; width: 100%; border-radius: 8px!important; }
-.dsm-members-signle-container { display: flex; justify-content: center; }
+.dsm-members-single-container { display: flex; justify-content: center; }
 .members-single-page { width: 960px; } 
-.dsm-members-page-single-wrapper { display: grid; grid-template-columns: auto auto; padding: 62px 42px 62px 42px; gap: 53px}
+.dsm-members-single-content-container { display: grid; grid-template-columns: 2fr 1fr; padding: 62px 42px 62px 42px; gap: 53px}
+/* .dsm-members-single-content { width: 48%; } */
+.dsm-members-single-title { font-size: 32px; color: var(--dark); }
 
-/** Single Page Contact Info */
-.dsm_contact--info { background-color: var(--primary); display: flex; flex-direction: column; justify-content: start; padding: 22px; border-radius: 8px; }
+/** Single Page Contact Info Card */
+.dsm_members-contact-info { background-color: var(--primary); display: flex; flex-direction: column; justify-content: start; padding: 22px; border-radius: 8px; }
 i { color: var(--light); }
-.dsm-contact-info--title { color: var(--dark); font-size: 22px; }
+.dsm-contact-info--title { color: var(--light); font-size: 22px; }
 a.contact-links { color: var(--light); }
 a.contact-links:hover { color: var(--secondary) }
 
@@ -53,6 +55,9 @@ a.contact-links:hover { color: var(--secondary) }
 @media only screen and (max-width: 996px) {
     .members-list { grid-template-columns: auto auto; padding: 12px 82px; }
     .member-content-container { padding: 12px 32px 32px 32px; }
+
+    /** Single Page Contact Info Card **/
+    .dsm-members-single-content-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); padding: 62px 42px 62px 42px; gap: 53px}
   }
 
 @media only screen and (max-width: 716px) {

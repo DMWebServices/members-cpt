@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="dsm-members-signle-container">
+<div class="dsm-members-single-container">
     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
         
         <article class="members-single-page" id="post-<?php the_ID(); ?>" <?php post_class('member-single'); ?>>
@@ -12,10 +12,9 @@
             <?php endif; ?>
             
             <!-- Members Single Page Content -->
-             <div class="dsm-members-page-single-wrapper">
-                <div class="dsm-members-signle-content">
-                    <h1 class="dsm-members-title"><?php the_title(); ?></h1>
-                    
+             <div class="dsm-members-single-content-container">
+                <div class="dsm-members-single-content">
+                    <h1 class="dsm-members-single-title"><?php the_title(); ?></h1>                    
                     <?php
                     $bio = get_post_meta(get_the_ID(), 'member_bio', true);
                     if (!empty($bio)) : ?>
@@ -23,7 +22,7 @@
                     <?php endif; ?>  
                 </div>        
                 <!-- Contact Info -->
-                <div class="dsm_contact-info">
+                <div class="dsm_members-contact-info">
                     <h3 class="dsm-contact-info--title">Contact</h3>
                     <?php
                     $email = get_post_meta(get_the_ID(), 'member_email', true);
